@@ -6,6 +6,8 @@ var VideoList = (props) => (
 
     {props.videos.map(video => {
       let videoID = video.id.videoId;
+      let videoTitle = video.snippet.title;
+      let videoDescription = video.snippet.description;
       return <VideoListEntry callbackClick={props.callbackClick} key={videoID} video={video} />;
     })}
 

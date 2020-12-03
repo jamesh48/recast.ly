@@ -1,10 +1,11 @@
 var VideoListEntry = (props) => {
   let video = props.video;
   let snippetInfo = video.snippet;
-
+  let videoID = video.id.videoId;
   let thumbnailLink = snippetInfo.thumbnails.default.url;
   let title = snippetInfo.title;
   let description = snippetInfo.description;
+  let data = {'videoId': videoID, 'title': title, 'description': description};
 
   return (
     <div className="video-list-entry media">
@@ -12,7 +13,7 @@ var VideoListEntry = (props) => {
         <img className="media-object" src={thumbnailLink} alt="" />
       </div>
       <div className="media-body">
-        <div className="video-list-entry-title" onClick={props.callbackClick}>{title}</div>
+        <div className="video-list-entry-title" onClick={() => props.callbackClick(data)}>{title}</div>
         <div className="video-list-entry-detail">{description}</div>
       </div>
     </div>

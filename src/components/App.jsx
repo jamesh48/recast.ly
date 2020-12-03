@@ -1,29 +1,37 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
+import Search from './Search.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentVideo: exampleVideoData[0],
+      currentVideo: {'videoId': exampleVideoData[0].id.videoId, 'title': exampleVideoData[0].snippet.title, 'description': exampleVideoData[0].description},
+      // currentVideo: exampleVideoData[0],
       allVideos: exampleVideoData
     };
 
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    let videoTitle = e.target.textContent;
-    for (let i = 0; i < this.state.allVideos.length; i++) {
-      let video = this.state.allVideos[i];
-      let title = this.state.allVideos[i].snippet.title;
+  // handleClick(e) {
+  //   e.preventDefault();
+  //   console.log(e.target)
+  //   let videoTitle = e.target.textContent;
+  //   for (let i = 0; i < this.state.allVideos.length; i++) {
+  //     let video = this.state.allVideos[i];
+  //     let title = this.state.allVideos[i].snippet.title;
 
-      if (title === videoTitle) {
-        this.setState({currentVideo: video});
-      }
-    }
+  //     if (title === videoTitle) {
+  //       this.setState({currentVideo: video});
+  //     }
+  //   }
+  // }
+
+
+  handleClick(data) {
+    this.setState({currentVideo: data});
   }
 
   render() {
@@ -31,7 +39,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div><Search/></div>
           </div>
         </nav>
         <div className="row">
