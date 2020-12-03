@@ -32,12 +32,8 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({currentSearch: e.target.value}, () => { console.log('xx=> ' + this.state.currentSearch); });
+    this.setState({currentSearch: e.target.value}, () => { console.log('currentSearch state- -> ' + this.state.currentSearch); });
   }
-
-  // handleClick(data) {
-  //   this.setState({currentSearch: data});
-  // }
 
   render() {
     return (
