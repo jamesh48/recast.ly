@@ -12,7 +12,7 @@ var VideoListEntry = (props) => {
         <img className="media-object" src={thumbnailLink} alt="" />
       </div>
       <div className="media-body">
-        <div className="video-list-entry-title">{title}</div>
+        <div className="video-list-entry-title" onClick={props.callbackClick}>{title}</div>
         <div className="video-list-entry-detail">{description}</div>
       </div>
     </div>

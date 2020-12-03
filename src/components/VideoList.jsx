@@ -3,10 +3,12 @@ import VideoListEntry from './VideoListEntry.js';
 var VideoList = (props) => (
 
   <div className="video-list">
+
     {props.videos.map(video => {
       let videoID = video.id.videoId;
-      return <VideoListEntry key={videoID} video={video} />;
+      return <VideoListEntry callbackClick={props.callbackClick} key={videoID} video={video} />;
     })}
+
   </div>
 );
 
