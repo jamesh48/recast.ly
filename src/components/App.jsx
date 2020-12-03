@@ -8,7 +8,6 @@ class App extends React.Component {
 
     this.state = {
       currentVideo: exampleVideoData[0],
-      // currentVideo: exampleVideoData[0],
       allVideos: exampleVideoData,
       currentSearch: ''
     };
