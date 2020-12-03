@@ -1,17 +1,16 @@
 var VideoPlayer = (props) => {
-  let video = props.video;
-  let videoID = video.videoId;
-
   // let video = props.video;
-  // let videoID = video.id.videoId;
+  // let videoID = video.videoId;
+  let video = props.video;
+  let videoID = video.id.videoId;
   let newVideo = `https://www.youtube.com/embed/${videoID}`;
 
-  // let videoSnippet = video.snippet;
-  // let title = videoSnippet.title;
-  // let description = videoSnippet.description;
+  let videoSnippet = video.snippet;
+  let title = videoSnippet.title;
+  let description = videoSnippet.description;
 
-  let title = video.title;
-  let description = video.description;
+  // let title = video.title;
+  // let description = video.description;
   return (
     <div className="video-player">
       <div className="embed-responsive embed-responsive-16by9">

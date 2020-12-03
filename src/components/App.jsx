@@ -7,39 +7,46 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentVideo: {'videoId': exampleVideoData[0].id.videoId, 'title': exampleVideoData[0].snippet.title, 'description': exampleVideoData[0].description},
+      currentVideo: exampleVideoData[0],
       // currentVideo: exampleVideoData[0],
-      allVideos: exampleVideoData
+      allVideos: exampleVideoData,
+      currentSearch: ''
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  // handleClick(e) {
-  //   e.preventDefault();
-  //   console.log(e.target)
-  //   let videoTitle = e.target.textContent;
-  //   for (let i = 0; i < this.state.allVideos.length; i++) {
-  //     let video = this.state.allVideos[i];
-  //     let title = this.state.allVideos[i].snippet.title;
+  handleClick(e) {
+    e.preventDefault();
+    console.log(e.target);
+    let videoTitle = e.target.textContent;
+    for (let i = 0; i < this.state.allVideos.length; i++) {
+      let video = this.state.allVideos[i];
+      let title = this.state.allVideos[i].snippet.title;
 
-  //     if (title === videoTitle) {
-  //       this.setState({currentVideo: video});
-  //     }
-  //   }
+      if (title === videoTitle) {
+        this.setState({currentVideo: video});
+      }
+    }
+  }
+
+  handleChange(e) {
+    this.setState({currentSearch: e.target.value}, () => { console.log('xx=> ' + this.state.currentSearch); });
+  }
+
+  // handleClick(data) {
+  //   this.setState({currentSearch: data});
   // }
-
-
-  handleClick(data) {
-    this.setState({currentVideo: data});
-  }
 
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search/></div>
+            <div>
+              <Search callbackChange={this.handleChange}/>
+            </div>
           </div>
         </nav>
         <div className="row">
