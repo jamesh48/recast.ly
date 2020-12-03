@@ -1,6 +1,8 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
+import searchYoutube from '../lib/searchYoutube.js';
+import YOUTUBE_API_KEY from '../config/youtube.example.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,8 +14,15 @@ class App extends React.Component {
       currentSearch: ''
     };
 
+    this.options = {
+      query: 'dogs',
+      max: 5,
+      key: YOUTUBE_API_KEY
+    };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.coolCallback = this.coolCallback.bind(this);
   }
 
   handleClick(e) {
@@ -34,7 +43,12 @@ class App extends React.Component {
     this.setState({currentSearch: e.target.value}, () => { console.log('currentSearch state- -> ' + this.state.currentSearch); });
   }
 
+  coolCallback() {
+    console.log('I\'m cool');
+  }
+
   render() {
+    searchYoutube(this.options, this.coolCallback);
     return (
       <div>
         <nav className="navbar">
