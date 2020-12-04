@@ -18,11 +18,12 @@ class App extends React.Component {
       key: YOUTUBE_API_KEY
     };
 
+    this.debouncedLoad = _.debounce((query, loadData) => this.props.searchYouTube(query, loadData), 1000);
+
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.loadData = this.loadData.bind(this);
   }
-
 
   handleClick(e) {
     e.preventDefault();
@@ -40,7 +41,8 @@ class App extends React.Component {
   handleChange(e) {
     this.setState({currentSearch: e.target.value}, () => {
       this.options.query = this.state.currentSearch;
-      this.props.searchYouTube(this.options, this.loadData);
+      this.debouncedLoad(this.options.query, this.loadData);
+      // this.props.searchYouTube(this.options, this.loadData);
     });
   }
 
