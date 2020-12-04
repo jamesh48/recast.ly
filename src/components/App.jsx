@@ -1,8 +1,8 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
-import searchYoutube from '../lib/searchYoutube.js';
-import YOUTUBE_API_KEY from '../config/youtube.example.js';
+// import searchYoutube from '../lib/searchYoutube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,40 +28,35 @@ class App extends React.Component {
   handleClick(e) {
     e.preventDefault();
     let videoTitle = e.target.textContent;
-    for (let i = 0; i < this.state.allVideos.length; i++) {
-      let video = this.state.allVideos[i];
-      let title = this.state.allVideos[i].snippet.title;
+
+    this.state.allVideos.forEach(video => {
+      let title = video.snippet.title;
 
       if (title === videoTitle) {
         this.setState({currentVideo: video});
       }
-    }
+    });
   }
 
   handleChange(e) {
-    //before setState?
-    // this.options.query = e.target.value;
     this.setState({currentSearch: e.target.value}, () => {
-      //or after setState?
       this.options.query = this.state.currentSearch;
-      // ??
-      // searchYoutube(this.options, this.loadData);
-      console.log('currentSearch state--> ' + this.state.currentSearch + ', options.query--> ' + this.options.query);
     });
   }
 
   loadData(data) {
-    console.log('data! => ' + data.query);
+    this.setState({
+      allVideos: data,
+      currentVideo: data[0]
+    });
   }
 
   //https://stackoverflow.com/questions/27192621/reactjs-async-rendering-of-components ???
   componentDidMount() {
-    console.log('<-componentDidMount->');
-    searchYoutube(this.options, this.loadData);
+    this.props.searchYouTube(this.options, this.loadData);
   }
 
   render() {
-    console.log('<-render->');
     return (
       <div>
         <nav className="navbar">
@@ -83,7 +78,5 @@ class App extends React.Component {
     );
   }
 }
-//
-// In the ES6 spec, files are "modules" and do not share a top-level scope
-// `var` declarations will only exist globally where explicitly defined
+
 export default App;

@@ -1,6 +1,6 @@
 import searchYouTube from '../../src/lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../../src/config/youtube.js';
-import exampleVideoData from '../../src/data/exampleVideoData.js';
+// import exampleVideoData from '../../src/data/exampleVideoData.js';
 
 var getURLSearchParams = function(url) {
   return url
