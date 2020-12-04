@@ -1,4 +1,3 @@
-//https://dev.to/aveb/making-your-first-get-request-to-youtube-search-api-4c2f
 var searchYouTube = (options, callback) => {
   $.ajax({
     type: 'GET',
@@ -13,7 +12,8 @@ var searchYouTube = (options, callback) => {
     },
 
     success: function(data) {
-      callback(data.items);
+      // console.log(data);
+      callback(data);
     },
 
     error: function(xhr, status, error) {

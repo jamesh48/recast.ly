@@ -40,6 +40,7 @@ class App extends React.Component {
   handleChange(e) {
     this.setState({currentSearch: e.target.value}, () => {
       this.options.query = this.state.currentSearch;
+      this.props.searchYouTube(this.options, this.loadData);
     });
   }
 
@@ -51,6 +52,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log('<-componentDidMount->');
     this.props.searchYouTube(this.options, this.loadData);
   }
 
