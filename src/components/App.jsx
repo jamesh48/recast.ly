@@ -15,14 +15,14 @@ class App extends React.Component {
     };
 
     this.options = {
-      query: 'dogs',
+      query: 'cats',
       max: 5,
       key: YOUTUBE_API_KEY
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.coolCallback = this.coolCallback.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   handleClick(e) {
@@ -43,12 +43,16 @@ class App extends React.Component {
     this.setState({currentSearch: e.target.value}, () => { console.log('currentSearch state- -> ' + this.state.currentSearch); });
   }
 
-  coolCallback() {
+  loadData(data) {
     console.log('I\'m cool');
   }
 
+  componentDidMount() {
+    searchYoutube(this.options, this.loadData);
+  }
+
   render() {
-    searchYoutube(this.options, this.coolCallback);
+
     return (
       <div>
         <nav className="navbar">

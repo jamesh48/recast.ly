@@ -13,12 +13,17 @@ var searchYouTube = (options, callback) => {
       videoEmbeddable: true,
     },
     success: function(data) {
-      console.log(JSON.stringify(data.items[0]));
-      callback();
+      console.log('success');
+      callback(data.items);
     },
-    error: function() {
-      console.log('fail');
-    },
+    error: function(xhr, status, error) {
+      const err = JSON.parse(xhr.responseText);
+      let [code, reason, message] = [err.error.code, err.error.errors[0].reason, err.error.message];
+      // let reason = err.error.errors[0].reason;
+      // let message = err.error.message;
+
+      console.log(`error ${code}: ${reason}, ${message}`);
+    }
   });
   // Accept a callback function that is invoked with the videos array that is returned from hitting the endpoint
   // Accept an options object with the following properties:
