@@ -7,7 +7,6 @@ import YOUTUBE_API_KEY from '../config/youtube.example.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currentVideo: exampleVideoData[0],
       allVideos: exampleVideoData,
@@ -15,7 +14,7 @@ class App extends React.Component {
     };
 
     this.options = {
-      query: 'cats',
+      query: '',
       max: 5,
       key: YOUTUBE_API_KEY
     };
@@ -25,9 +24,9 @@ class App extends React.Component {
     this.loadData = this.loadData.bind(this);
   }
 
+
   handleClick(e) {
     e.preventDefault();
-    console.log(e.target);
     let videoTitle = e.target.textContent;
     for (let i = 0; i < this.state.allVideos.length; i++) {
       let video = this.state.allVideos[i];
@@ -40,19 +39,29 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({currentSearch: e.target.value}, () => { console.log('currentSearch state- -> ' + this.state.currentSearch); });
+    //before setState?
+    // this.options.query = e.target.value;
+    this.setState({currentSearch: e.target.value}, () => {
+      //or after setState?
+      this.options.query = this.state.currentSearch;
+      // ??
+      // searchYoutube(this.options, this.loadData);
+      console.log('currentSearch state--> ' + this.state.currentSearch + ', options.query--> ' + this.options.query);
+    });
   }
 
   loadData(data) {
-    console.log('I\'m cool');
+    console.log('data! => ' + data.query);
   }
 
+  //https://stackoverflow.com/questions/27192621/reactjs-async-rendering-of-components ???
   componentDidMount() {
+    console.log('<-componentDidMount->');
     searchYoutube(this.options, this.loadData);
   }
 
   render() {
-
+    console.log('<-render->');
     return (
       <div>
         <nav className="navbar">

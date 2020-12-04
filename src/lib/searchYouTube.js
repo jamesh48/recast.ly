@@ -1,6 +1,8 @@
 //https://dev.to/aveb/making-your-first-get-request-to-youtube-search-api-4c2f
 var searchYouTube = (options, callback) => {
   // Use jQuery to send a GET request to the search endpoint. This is the only time you should use jQuery in this sprint
+  callback(options);
+  return;
   $.ajax({
     type: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
@@ -19,8 +21,6 @@ var searchYouTube = (options, callback) => {
     error: function(xhr, status, error) {
       const err = JSON.parse(xhr.responseText);
       let [code, reason, message] = [err.error.code, err.error.errors[0].reason, err.error.message];
-      // let reason = err.error.errors[0].reason;
-      // let message = err.error.message;
 
       console.log(`error ${code}: ${reason}, ${message}`);
     }
