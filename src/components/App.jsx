@@ -1,7 +1,6 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
-// import searchYoutube from '../lib/searchYoutube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
@@ -51,7 +50,6 @@ class App extends React.Component {
     });
   }
 
-  //https://stackoverflow.com/questions/27192621/reactjs-async-rendering-of-components ???
   componentDidMount() {
     this.props.searchYouTube(this.options, this.loadData);
   }
