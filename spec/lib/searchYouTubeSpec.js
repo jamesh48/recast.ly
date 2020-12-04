@@ -1,6 +1,6 @@
 import searchYouTube from '../../src/lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../../src/config/youtube.js';
-import exampleVideoData from '../../src/data/exampleVideoData.js';
+// import exampleVideoData from '../../src/data/exampleVideoData.js';
 
 var getURLSearchParams = function(url) {
   return url
@@ -81,6 +81,7 @@ describe('searchYouTube', function() {
     xhr.restore();
 
     searchYouTube(options, (data) => {
+      console.log(data);
       expect(hasSameShape(data, exampleVideoData)).to.be.true;
       done();
     });

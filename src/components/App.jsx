@@ -1,37 +1,59 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currentVideo: exampleVideoData[0],
       allVideos: exampleVideoData,
       currentSearch: ''
     };
 
+    this.options = {
+      query: '',
+      max: 5,
+      key: YOUTUBE_API_KEY
+    };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
+
 
   handleClick(e) {
     e.preventDefault();
-    console.log(e.target);
     let videoTitle = e.target.textContent;
-    for (let i = 0; i < this.state.allVideos.length; i++) {
-      let video = this.state.allVideos[i];
-      let title = this.state.allVideos[i].snippet.title;
+
+    this.state.allVideos.forEach(video => {
+      let title = video.snippet.title;
 
       if (title === videoTitle) {
         this.setState({currentVideo: video});
       }
-    }
+    });
   }
 
   handleChange(e) {
-    this.setState({currentSearch: e.target.value}, () => { console.log('currentSearch state- -> ' + this.state.currentSearch); });
+    this.setState({currentSearch: e.target.value}, () => {
+      this.options.query = this.state.currentSearch;
+      this.props.searchYouTube(this.options, this.loadData);
+    });
+  }
+
+  loadData(data) {
+    this.setState({
+      allVideos: data,
+      currentVideo: data[0]
+    });
+  }
+
+  componentDidMount() {
+    console.log('<-componentDidMount->');
+    this.props.searchYouTube(this.options, this.loadData);
   }
 
   render() {
@@ -56,7 +78,5 @@ class App extends React.Component {
     );
   }
 }
-//
-// In the ES6 spec, files are "modules" and do not share a top-level scope
-// `var` declarations will only exist globally where explicitly defined
+
 export default App;
