@@ -1,7 +1,20 @@
 var VideoPlayer = (props) => {
-  // let video = props.video;
-  // let videoID = video.videoId;
   let video = props.video;
+
+  if (video.id === undefined) {
+    return (
+      <div className="video-player">
+        <div className="embed-responsive embed-responsive-16by9">
+          <iframe className="embed-responsive-item" allowFullScreen></iframe>
+        </div>
+        <div className="video-player-details">
+          <h3></h3>
+          <div></div>
+        </div>
+      </div>
+    );
+  }
+
   let videoID = video.id.videoId;
   let newVideo = `https://www.youtube.com/embed/${videoID}`;
 
@@ -9,8 +22,6 @@ var VideoPlayer = (props) => {
   let title = videoSnippet.title;
   let description = videoSnippet.description;
 
-  // let title = video.title;
-  // let description = video.description;
   return (
     <div className="video-player">
       <div className="embed-responsive embed-responsive-16by9">
@@ -22,6 +33,7 @@ var VideoPlayer = (props) => {
       </div>
     </div>
   );
+
 };
 
 // PropTypes tell other developers what `props` a component expects

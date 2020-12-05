@@ -7,8 +7,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: exampleVideoData[0],
-      allVideos: exampleVideoData,
+      currentVideo: {},
+      allVideos: [],
       currentSearch: ''
     };
 
@@ -18,8 +18,7 @@ class App extends React.Component {
       key: YOUTUBE_API_KEY
     };
 
-    this.debouncedLoad = _.debounce((query, loadData) => this.props.searchYouTube(query, loadData), 1000);
-
+    this.debouncedLoad = this.debouncedLoad.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.loadData = this.loadData.bind(this);
@@ -41,20 +40,25 @@ class App extends React.Component {
   handleChange(e) {
     this.setState({currentSearch: e.target.value}, () => {
       this.options.query = this.state.currentSearch;
-      this.debouncedLoad(this.options.query, this.loadData);
-      // this.props.searchYouTube(this.options, this.loadData);
+      this.debouncedLoad(this.options, this.loadData);
     });
   }
 
-  loadData(data) {
-    this.setState({
-      allVideos: data,
-      currentVideo: data[0]
-    });
+  loadData(videos) {
+    if (videos.items) {
+      this.setState({
+        allVideos: videos.items,
+        currentVideo: videos.items[0]
+      });
+    }
+  }
+
+  debouncedLoad(options, loadData) {
+    let debounced = _.debounce((options, loadData) => this.props.searchYouTube(options, loadData), 1000);
+    debounced(options, loadData);
   }
 
   componentDidMount() {
-    console.log('<-componentDidMount->');
     this.props.searchYouTube(this.options, this.loadData);
   }
 
